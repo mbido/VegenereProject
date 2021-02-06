@@ -151,9 +151,14 @@ function decodage(mot, clef){
   return res;
 }
 
-//#################### Décrypter ##########################
-
+//#################### Décrypter #########################
 function suppression_car(texte){
+	/**
+	 * array -> array
+	 * Cette fonction prend en argument ule tableau texte qui sera implémenter en js par un array
+	 * Renverra un tableau texte qui sera implémenter en js par un array 
+	 * Du quel tous les caractères non présent dans l'alphabet seront supprimés
+	 */
 	var num = 0
 	while (num!=texte.length){
 		console.log(num,texte.length)
@@ -168,6 +173,12 @@ function suppression_car(texte){
 }
 
 function comptage_2uplet(texte) {
+	/**
+	 * array -> array
+	 * Cette fonction prend en argument le tableau texte qui sera implémenter en js par un array
+	 * Renverra un tableau valeur qui sera implémenter en js par un array 
+	 * Qui contiendra pour tous les groupes de 2 caractères dans le texte, la distance entre lui et un autre dans tous le texte 
+	 */
   	var valeur = [];
 	while (texte.length > 1){
 		var lettre = texte.slice(0,2)
@@ -181,22 +192,34 @@ function comptage_2uplet(texte) {
 	return(valeur)
 }
 
-function max(liste_val){
+function max(val){
+	/**
+	 * array -> number
+	 * Cette fonction prend en argument le tableau val qui sera implémenter en js par un array 
+	 * Renverra la variable maxi qui contiendra une valeur de type number 
+	 * Qui correspond à la plus grande distance entre deux groupes de 2 même lettres
+	 */
 	var maxi = 0
-	for (var i = 0; i <= liste_val.length; i++) {
-		if (liste_val[i] > maxi){
-			maxi = liste_val[i]
+	for (var i = 0; i <= val.length; i++) {
+		if (val[i] > maxi){
+			maxi = val[i]
 		}
 	}
 	return maxi
 }
 
-function diviseurs(liste_val,maxi){
+function diviseurs(val,maxi){
+	/**
+	 * array,number -> array,array
+	 * Cette fonction prend en argument le tableau val qui sera implémenter en js par un array  et la variable maxi qui contiendra une valeur de type number
+	 * Renverra le tableau diviseur qui sera implémenter en js par un array et le tableau nb_diviseur qui sera implémenter en js par un array 
+	 * Qui contiendra pour le premier tous les divisueurs de chaques elements present dans val et pour le second 1 fois chaque diviseurs
+	 */
 	var diviseur = []
 	var nb_diviseur = []
 	for (var i = 2; i <= maxi/2; i++) {
-		for (var k = 0; k < liste_val.length; k++) {
-			if (liste_val[k]%i==0){
+		for (var k = 0; k < val.length; k++) {
+			if (val[k]%i==0){
 				diviseur.push(i)
 			}
 		}
@@ -207,6 +230,12 @@ function diviseurs(liste_val,maxi){
 }
 
 function plus_present(ensemble_diviseur,liste_diviseur){
+	/**
+	 * array,array -> array
+	 * Cette fonction prend en argument le tableau ensemble_diviseur qui sera implémenter en js par un array et le tableau liste_diviseur qui sera implémenter en js par un array  
+	 * Renverra le tableau res qui sera implémenter en js par un array
+	 * Qui contiendra les diviseurs les plus présents dans le array  de taille inférieur à la largeur de la bande grise situé sur le côté gauche
+	 */
 	var valeur = []
 	for (var i = 0; i < liste_diviseur.length; i++) {
 		var nb = 0
@@ -230,6 +259,12 @@ function plus_present(ensemble_diviseur,liste_diviseur){
 }
 
 function reorganise_texte(texte,cle){
+	/**
+	 * array,number -> array
+	 * Cette fonction prend en argument le tableau texte qui sera implémenter en js par un array et la variable cle qui contiendra une valeur de type number
+	 * Renverra le tableau texte_reorganiser2 qui sera implémenter en js par un array
+	 * Qui contiendra le texte mais dont les caractère sont organiser en colones et non en lignes et dont le nombre de ligne est égual à la valeur de la varible cle
+	 */
 	var texte_reorganiser = [];
 	var ligne = [];
 	for (var i = 0; i < texte.length; i++) {
@@ -254,6 +289,12 @@ function reorganise_texte(texte,cle){
 } 
 
 function trouver_cle(texte,long_cle){
+	/**
+	 * array,number -> array
+	 * Cette fonction prend en argument le tableau texte qui sera implémenter en js par un array et la variable cle qui contiendra une valeur de type number
+	 * Renverra le tableau estimations qui sera implémenter en js par un array et le tableau long_cle qui sera implémenter en js par un array 
+	 * Qui contiendra pour le première une des clé de dechiffrement et pour le second la longueur de le clé renvoyée
+	 */
 	var num = 0
 	var estimations = ""
 	for (var i = 0; i<= texte.length - 1; i++){
@@ -277,6 +318,12 @@ function trouver_cle(texte,long_cle){
 }
 
 function estimation(liste){
+	/**
+	 * array -> string
+	 * Cette fonction prend en argument le tableau liste qui sera implémenter en js par un array
+	 * Renverra la variable res qui contiendra une valeur de type string
+	 * Qui contiendra la lettre estimé pour un des caractères de la clé de chiffrement
+	 */
 	var liste_estimation = []
 	for (var i = 0; i < liste[0].length; i++) {
 		var valeur = 0
@@ -320,6 +367,12 @@ function estimation(liste){
 }
 
 function programme_principale(texte){
+	/**
+	 * array -> array
+	 * Cette fonction prend en argument le tableau texte qui sera implémenter en js par un array
+	 * Renverra le tableau liste_cle qui sera implémenter en js par un array
+	 * Qui contiendra la liste des clés de chiffrments estimés
+	 */
 	var texte = suppression_car(texte)
 	var long_entre_2uplet = comptage_2uplet(texte)
 	var maxi = max(long_entre_2uplet)
